@@ -50,8 +50,9 @@ code {
 .input {
     min-width: 25%;
 }
-.list-group, list-group-item{
-    background-color: rgba(3, 218, 197, 0.43);}
+
+.list-group-item{
+    background-color: rgba(3, 218, 197, 0.43)!important;}
 
 .title{
 text-align: center; }

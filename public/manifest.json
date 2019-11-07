@@ -2,6 +2,5 @@
   "short_name": "Anto" name": "Antonopoulos Explorer",
  "start_url": ".",
   "display": "standalone",
-  "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "theme_color": "#000000"
 }
