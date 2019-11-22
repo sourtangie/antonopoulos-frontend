@@ -52,9 +52,11 @@ class ComplexList extends React.Component {
                 <ul className="list-group">
                     {this.state.filtered.map(item => (
                         <li className="list-group-item" key={item.id}>
-                            <div><h4>Transaction {item.id}</h4></div>
+                            <div><h4>Transaction</h4></div>
                             <div><h5>Timestamp: {item.date} - {item.timestamp}</h5></div>
                             <div><h5>Payload:</h5> <p>{item.data}</p></div>
+                            <div><h5>Address:</h5> <p>{item.address}</p></div>
+
 
                         </li>
                     ))}
