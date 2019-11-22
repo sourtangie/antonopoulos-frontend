@@ -48,6 +48,7 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="ProjectId" id="1Txm7TsXnsC4ynxxCCju1JyIjou" />
   <component name="PropertiesComponent">
     <property name="nodejs_interpreter_path" value="C:/Program Files/nodejs/node" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -56,12 +57,12 @@
     <property name="js-jscs-nodeInterpreter" value="C:\Program Files\nodejs\node.exe" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\cassi\Documents\GitHub\antonopoulos\src\style" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\cassi\Documents\GitHub\antonopoulos\src\style" />
       <recent name="C:\Users\cassi\Documents\GitHub\antonopoulos\src" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\cassi\Documents\GitHub\antonopoulos\src\style" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -98,6 +99,7 @@
       <option name="presentableId" value="Default" />
       <updated>1573135814750</updated>
       <workItem from="1573135825289" duration="14416000" />
+      <workItem from="1574409967091" duration="296000" />
     </task>
     <servers />
   </component>
@@ -110,12 +112,17 @@
       <is-autoscroll-to-source value="true" />
     </todo-panel>
   </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>

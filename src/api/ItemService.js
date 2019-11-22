@@ -1,13 +1,12 @@
 class ItemService {
     async getAll() {
-        return fetch('http://165.22.205.204/sawtooth/transactions')
+        return fetch('http://165.22.205.204/sawtooth/state?address=a75563')
             .then(response => {
                 if(!response.ok){
                     console.log('error' + response);
                 }
                 return response.json();
             }).then(json => {
-                //const items = [];
                 const itemArray = json.data;
                 console.log(itemArray);
                 for(let i = 0; i < itemArray.length; i++){
@@ -15,9 +14,9 @@ class ItemService {
                     const dateLength = 10;
                     const charsBeforeTime = 26;
                     const timeLength = 15;
-                    itemArray[i].payload = atob(itemArray[i].payload);
-                    const timestampIndex  = itemArray[i].payload.lastIndexOf("timestamp");
-                    if (itemArray[i].payload.includes("timestamp")){
+                    itemArray[i].data = atob(itemArray[i].data);
+                    const timestampIndex  = itemArray[i].data.lastIndexOf("timestamp");
+                    if (itemArray[i].data.includes("timestamp")){
                     itemArray[i].date =
                         itemArray[i].payload.substr(
                             timestampIndex+charsBeforeDate,
