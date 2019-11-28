@@ -26,7 +26,7 @@ class ComplexList extends React.Component {
             let currentItems = this.props.items;
             console.log(currentItems);
             filteredItems = currentItems.filter((item) => {
-            let data = "data "+item.data.toLowerCase()+"transaction " + item.id + item.timestamp ;
+            let data = "data "+item.data.toLowerCase()+"transaction " + item.id + item.timestamp +item.address ;
             return data.includes(
                     e.target.value.toLowerCase());
         });

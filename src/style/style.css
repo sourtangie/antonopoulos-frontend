@@ -35,6 +35,7 @@
     position: sticky;
     z-index: 999;
     top: 0;
+    box-shadow: 1px 5px 5px grey;
 }
 body {
     margin: 0;
@@ -52,7 +53,11 @@ code {
 }
 
 .list-group-item{
-    background-color: rgba(3, 218, 197, 0.43)!important;}
+    background-color: rgba(3, 218, 197, 0.43)!important;
+    border-top-left-radius: 0!important;
+    border-top-right-radius: 0!important;
+    box-shadow: 16px 1px 2px grey;
+}
 
 .title{
 text-align: center; }
