@@ -8,7 +8,7 @@ class FormView extends React.Component {
     handleChange(e){
         e.preventDefault();
         if(e.target.key.value === ""){
-            alert("Please input a private key!")
+            alert("Please input a key!")
         }else {
             this.props.changeValue(
                 e.target.key.value,
@@ -17,13 +17,14 @@ class FormView extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.handleChange.bind(this)}>
-                <label>
-                    Private Key:
-                    <input type="text" name="key" />
-                </label>
-                <input type="submit" value="Submit" />
-            </form>
+            <form className="mr-sm-2 form-inline" onSubmit={this.handleChange.bind(this)}>
+                <div>
+                <label className="text-white font-weight-bold">
+                    Public Key: </label>
+                    <input className ="form-control mr-sm-2" type="search" name="key" placeholder="Public key..." aria-label="Search" />
+                <button className="pull-right btn btn-outline-success" type="submit">Submit</button>
+                </div>
+                </form>
         );
     }
 }

@@ -45,17 +45,17 @@ class ComplexList extends React.Component {
     render() {
         return (
             <div>
-                <div className="search">
-                    <h2 className="title">Transactions</h2>
-                    <input type="text" className="input" placeholder="Search by user ID, block ID or file ID..." onChange={this.handleChange}/>
+                <div className="search bg-dark">
+                    <h2 className="title text-white">Transactions</h2>
+                    <input className ="form-control mr-sm-2" type="text" placeholder="Search by user ID, block ID or file ID..." onChange={this.handleChange}/>
                 </div>
                 <ul className="list-group">
                     {this.state.filtered.map(item => (
-                        <li className="list-group-item" key={item.id}>
-                            <div><h4>Transaction</h4></div>
-                            <div><h5>Timestamp: {item.date} - {item.timestamp}</h5></div>
-                            <div><h5>Payload:</h5> <p>{item.data}</p></div>
-                            <div><h5>Address:</h5> <p>{item.address}</p></div>
+                        <li className="list-group-item bg-light" key={item.id}>
+                            <div className="d-flex w-100 justify-content-between"><h4 className="mb-1"></h4>
+                            <small className="font-weight-bold">Timestamp: {item.date} - {item.timestamp}</small></div>
+                            <div><h5 className="mb-1">Payload:</h5> <p className="mb-1 overflow-auto">{item.data}</p></div>
+                            <div><h5 className="mb-1">Address:</h5> <p className="mb-1">{item.address}</p></div>
 
 
                         </li>

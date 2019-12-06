@@ -1,6 +1,7 @@
 class ItemService {
     async getAll(key) {
-        return fetch('http://165.22.205.204/sawtooth/state?address=a75563')
+        const link = 'http://165.22.205.204/sawtooth/state?address='+key;
+        return fetch(link)
             .then(response => {
                 if(!response.ok){
                     console.log('error' + response);
@@ -17,12 +18,12 @@ class ItemService {
                     const timestampIndex  = itemArray[i].data.lastIndexOf("timestamp");
                     if (itemArray[i].data.includes("timestamp")){
                     itemArray[i].date =
-                        itemArray[i].payload.substr(
+                        itemArray[i].data.substr(
                             timestampIndex+charsBeforeDate,
                             dateLength
                         );
                     itemArray[i].timestamp =
-                        itemArray[i].payload.substr(
+                        itemArray[i].data.substr(
                             timestampIndex + charsBeforeTime,
                             timeLength
                         );
@@ -32,7 +33,7 @@ class ItemService {
                         itemArray[i].date = "undef";
                       //  itemArray.splice(i,1);
                     }}
-                return itemArray.reverse();
+                return itemArray;
             })
 
     }

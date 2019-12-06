@@ -1,37 +1,7 @@
-.App {
-    text-align: center;
-}
-
-.App-header {
-    background-color: #FFFFFF;
-    min-height: 7vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: black;
-    border-radius: 15px 15px 0px 0px;
-    padding-top: 1%;
-    padding-bottom: 1%;
-}
-
-.App-subheader {
-    background-color: #03DAC5;
-    position:sticky;
-    top:0;
-    z-index: 999;
-    margin: 0;
-
-}
-
-.App-link {
-    color: #09d3ac;
-}
 .search{
     border-radius: 15px 15px 0px 0px;
     text-align: right;
     padding: 1% 5% 1% 5%;
-    background-color: #00c0a4;
     position: sticky;
     z-index: 999;
     top: 0;
@@ -52,12 +22,13 @@ code {
     min-width: 25%;
 }
 
-.list-group-item{
-    background-color: rgba(3, 218, 197, 0.43)!important;
-    border-top-left-radius: 0!important;
-    border-top-right-radius: 0!important;
-    box-shadow: 16px 1px 2px grey;
-}
-
 .title{
 text-align: center; }
+
+.header-padding{
+    padding-bottom: 5px;
+    margin-bottom: 10px;
+}
+.brand-pic{
+    margin-right: 5px;
+}
