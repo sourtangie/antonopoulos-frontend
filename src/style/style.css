@@ -32,3 +32,15 @@ text-align: center; }
 .brand-pic{
     margin-right: 5px;
 }
+.adminButton{
+    float: right;
+    width:30px;
+    height: 30px;
+
+}
+.main-header{
+    width: 100%;
+}
+.keyInput-label{
+    justify-content: left!important;
+}

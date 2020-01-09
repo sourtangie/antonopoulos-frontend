@@ -53,7 +53,7 @@ class ComplexList extends React.Component {
                     {this.state.filtered.map(item => (
                         <li className="list-group-item bg-light" key={item.id}>
                             <div className="d-flex w-100 justify-content-between"><h4 className="mb-1"></h4>
-                            <small className="font-weight-bold">Timestamp: {item.date} - {item.timestamp}</small></div>
+                            <small className="font-weight-bold">Timestamp: {item.date} @ {item.timestamp}</small></div>
                             <div><h5 className="mb-1">Payload:</h5> <p className="mb-1 overflow-auto">{item.data}</p></div>
                             <div><h5 className="mb-1">Address:</h5> <p className="mb-1">{item.address}</p></div>
 

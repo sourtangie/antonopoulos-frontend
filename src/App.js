@@ -1,15 +1,22 @@
 import React from 'react';
 import ComplexList from './components/ComplexList';
+import User from './components/User';
+import Admin from './components/Admin';
+import Home from './components/Home'
 import './style/style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import ItemService from "./api/ItemService";
-import FormView from "./components/FormView";
 import Header from "./components/Header";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
+import FormView from "./components/FormView";
 
 class App extends React.Component {
     constructor(props){
         super(props);
-        this.itemService = new ItemService();
         this.state = {
             list : [ {
                 id: '213',
@@ -17,41 +24,24 @@ class App extends React.Component {
             key : ""
         }
     }
-    init(key) {
-        this.itemService.getAll(key).then(items => {
-            this.setState({list: items});
-            console.log("init="+this.state);
-        });
-    }
-    changeValue(key) {
-        this.setState(
-            {
-                key: key
-            },
-        );
-        this.init(key);
-    }
 
 
     render(){
     return(
+        <Router>
     <div className="container-fluid app">
         <div className="row">
             <Header />
-            <div className="col-lg-3 bg-dark header-padding">
-            </div>
-            <div className="col-lg-4 bg-dark header-padding">
-            </div>
-            <div className="col-lg bg-dark header-padding">
-            <FormView changeValue={this.changeValue.bind(this)} />
-            </div>
         </div>
-        <div className="row">
-            <div className="col-md-12">
-        <ComplexList items={this.state.list} className="col-lg-2" />
-            </div>
+            <div className="content">
+                <Switch>
+                <Route path="/user" component={User}/>
+                <Route exact path="/" component={Home}/>
+                <Route path="/admin" component={Admin}/>
+                </Switch>
         </div>
     </div>
+        </Router>
 
 )}}
 

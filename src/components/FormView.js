@@ -17,12 +17,12 @@ class FormView extends React.Component {
 
     render() {
         return (
-            <form className="mr-sm-2 form-inline" onSubmit={this.handleChange.bind(this)}>
+            <form className="mr-sm-2 form-inline float-lg-right" onSubmit={this.handleChange.bind(this)}>
                 <div>
-                <label className="text-white font-weight-bold">
+                <label className="text-white font-weight-bold keyInput-label">
                     Public Key: </label>
                     <input className ="form-control mr-sm-2" type="search" name="key" placeholder="Public key..." aria-label="Search" />
-                <button className="pull-right btn btn-outline-success" type="submit">Submit</button>
+                <button className="float-lg-right btn btn-outline-success" type="submit">Submit</button>
                 </div>
                 </form>
         );
