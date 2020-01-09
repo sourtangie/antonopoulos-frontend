@@ -14,6 +14,9 @@ import {
 
 
 class Header extends React.Component{
+    constructor(props) {
+        super(props);
+    }
     render(){
         return(
             <nav className="navbar navbar-expand-lg navbar-light bg-dark header-padding main-header">
@@ -21,9 +24,6 @@ class Header extends React.Component{
                     <img className="brand-pic" src={logo} width="30" height="30" alt="" />
                     Antonopolous Explorer</Link>
                 <div className="col-lg-8">
-                <Switch>
-                    <Route path = "/user" component={FormView}/>
-                </Switch>
                 </div>
                 <div className="col-lg">
                     <Link to="/admin"><img src={adminPic} className="adminButton"/></Link>

@@ -2,15 +2,34 @@
  * Created by cassi on 28/11/19.
  */
 import React from "react";
+import ItemService from "../api/ItemService";
 
 class FormView extends React.Component {
+    constructor(props) {
+        super(props);
+        this.itemService = new ItemService();
+    }
+    init(key) {
+        this.itemService.getAll(key).then(items => {
+            this.props.handler(items);
+            console.log("init="+this.state);
 
+        });
+    }
+    changeValue(key) {
+        this.setState(
+            {
+                key: key
+            },
+        );
+        this.init(key);
+    }
     handleChange(e){
         e.preventDefault();
         if(e.target.key.value === ""){
             alert("Please input a key!")
         }else {
-            this.props.changeValue(
+            this.changeValue(
                 e.target.key.value,
             );
         } };

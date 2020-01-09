@@ -1,4 +1,5 @@
 import React from 'react';
+import FormView from "./FormView";
 class ComplexList extends React.Component {
     constructor(props) {
         super(props);
@@ -6,6 +7,7 @@ class ComplexList extends React.Component {
             filtered: [],
         };
         this.handleChange = this.handleChange.bind(this);
+        this.handler = this.handler.bind(this);
     }
 
     componentDidMount() {
@@ -13,17 +15,16 @@ class ComplexList extends React.Component {
             filtered: this.props.items
         });
     }
-
-    componentWillReceiveProps(nextProps) {
-        this.setState({
-            filtered: nextProps.items
-        });
+    fullList;
+    handler(value){
+        this.fullList = value;
+        this.setState({filtered:value});
     }
 
     handleChange(e) {
         let filteredItems = [];
         if (e.target.value !== "") {
-            let currentItems = this.props.items;
+            let currentItems =this.fullList;
             console.log(currentItems);
             filteredItems = currentItems.filter((item) => {
             let data = "data "+item.data.toLowerCase()+"transaction " + item.id + item.timestamp +item.address ;
@@ -35,7 +36,7 @@ class ComplexList extends React.Component {
         });
 
         } else {
-            filteredItems = this.props.items;
+            filteredItems = this.fullList;
         }
         this.setState({
             filtered: filteredItems
@@ -43,9 +44,11 @@ class ComplexList extends React.Component {
     }
 
     render() {
+        const handler = this.handler;
         return (
             <div>
                 <div className="search bg-dark">
+                    <FormView handler = {handler.bind(this)}/>
                     <h2 className="title text-white">Transactions</h2>
                     <input className ="form-control mr-sm-2" type="text" placeholder="Search by user ID, block ID or file ID..." onChange={this.handleChange}/>
                 </div>

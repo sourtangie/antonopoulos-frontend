@@ -13,28 +13,19 @@ class User extends Component {
             list : [ {
                 id: '213',
                 data: 'Not Logged In...'}],
-            key : ""
+            key : "",
+            logged_in:"0"
         }
     }
-    init(key) {
-        this.itemService.getAll(key).then(items => {
-            this.setState({list: items});
-            console.log("init="+this.state);
-        });
-    }
-    changeValue(key) {
-        this.setState(
-            {
-                key: key
-            },
-        );
-        this.init(key);
+    handler(value){
+        this.setState({filtered:value});
     }
         render() {
-        return (
+            const handler = this.handler;
+            return (
                 <div className="row">
                     <div className="col-md-12">
-                        <ComplexList items={this.state.list} className="col-lg-2" />
+                        <ComplexList items={this.state.list} handler = {handler.bind(this)} className="col-lg-2" />
                     </div>
                 </div>
         );

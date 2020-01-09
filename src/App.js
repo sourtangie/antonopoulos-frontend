@@ -16,6 +16,7 @@ import FormView from "./components/FormView";
 
 class App extends React.Component {
     constructor(props){
+
         super(props);
         this.state = {
             list : [ {
@@ -35,7 +36,9 @@ class App extends React.Component {
         </div>
             <div className="content">
                 <Switch>
-                <Route path="/user" component={User}/>
+                <Route path="/user">
+                    <User/>
+                </Route>
                 <Route exact path="/" component={Home}/>
                 <Route path="/admin" component={Admin}/>
                 </Switch>
