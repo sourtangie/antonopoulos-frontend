@@ -9,8 +9,13 @@ class FormView extends React.Component {
         super(props);
         this.itemService = new ItemService();
     }
+    componentDidMount(){
+        this.setState({
+            key:this.props.key
+        })
+    }
     init(key) {
-        this.itemService.getAll(key).then(items => {
+        this.itemService.getAllTransactions(key).then(items => {
             this.props.handler(items);
             console.log("init="+this.state);
 

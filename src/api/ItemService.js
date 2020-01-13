@@ -1,6 +1,7 @@
 class ItemService {
-    async getAll(key) {
-        const link = 'http://165.22.205.204/sawtooth/state?address='+key;
+    async getAllTransactions(key) {
+        console.log(key);
+        const link = 'https://xlogchain.nl/sawtooth/state?address='+key;
         return fetch(link)
             .then(response => {
                 if(!response.ok){
@@ -10,29 +11,12 @@ class ItemService {
             }).then(json => {
                 const itemArray = json.data;
                 for(let i = 0; i < itemArray.length; i++){
-                    const charsBeforeDate = 11;
-                    const dateLength = 10;
-                    const charsBeforeTime = 26;
-                    const timeLength = 10;
                     itemArray[i].data = this.decryptData(itemArray[i].data);
-                    const timestampIndex  = itemArray[i].data.lastIndexOf("timestamp");
-                    if (itemArray[i].data.includes("timestamp")){
-                    itemArray[i].date =
-                        itemArray[i].data.substr(
-                            timestampIndex+charsBeforeDate,
-                            dateLength
-                        );
-                    itemArray[i].timestamp =
-                        itemArray[i].data.substr(
-                            timestampIndex + charsBeforeTime,
-                            timeLength
-                        );
-
-                }else{
-                        itemArray[i].timestamp = "undef";
-                        itemArray[i].date = "undef";
-                      //  itemArray.splice(i,1);
-                    }}
+                    const fields = itemArray[i].data.split(',');
+                    itemArray[i] = {username: fields[0],logNumber:fields[1],docName:fields[2],timestamp:fields[3], address: itemArray[i].address};
+                    console.log(itemArray[i].username)
+                    itemArray[i].timestamp = itemArray[i].timestamp.replace('T',' @ ');
+                }
                 return itemArray;
             })
 
@@ -45,5 +29,57 @@ class ItemService {
 
 
 }
+//get users to fill admin user list
+    async getAllUsers(key) {
+        const link = 'https://xlogchain.nl/sawtooth/state?address=';
+        return fetch(link)
+            .then(response => {
+                if(!response.ok){
+                    console.log('error' + response);
+                }
+                return response.json();
+            }).then(json => {
+                const userArray = json.data;
+                for(let i = 0; i < userArray.length; i++){
+                    console.log(userArray[i].username)
+
+                }
+                return userArray;
+            })
+
+    }
+
+    //generate keys and add new user
+     async addUser(email){
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json; charset=utf-8');
+        const link = 'https://xlogchain.nl:3000/user/';
+        fetch(link, {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify({requester: email})
+        }).then(response => {
+            console.log('response' + response);
+            return response.json();
+            }).catch((err)=> console.log(err))
+    }
+    async getNetworkInfo() {
+        const link = 'https://xlogchain.nl/sawtooth/transactions';
+        return fetch(link)
+            .then(response => {
+                if(!response.ok){
+                    console.log('error' + response);
+                }
+                return response.json();
+            }).then(json => {
+                const itemArray = json.data;
+                for(let i = 0; i < itemArray.length; i++){
+                    console.log(itemArray[i].header);
+                    itemArray[i].payload = this.decryptData(itemArray[i].payload);
+                }
+                return itemArray;
+            })
+
+    }
 }
 export default ItemService;

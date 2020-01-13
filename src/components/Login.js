@@ -1,54 +1,62 @@
-//
-// import React, { useState } from "react";
-// import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
-// //import "./Login.css";
-//
-// export default function Login(props) {
-//     const [email, setEmail] = useState("");
-//     const [public_key, setPublic_key] = useState("");
-//
-//     function validateForm() {
-//         return email.length > 0 && public_key.length > 0;
-//     }
-//
-//     function handleSubmit(event) {
-//         const { username, public_key } = this.state;
-//         const { history } = this.props;
-//
-//         this.setState({ error: false });
-//
-//         if (!(username === 'Freek@freek.nl' && public_key === '123')) {
-//             return this.setState({ error: true });
-//         }
-//
-//         this.setState({logged_in: true});
-//         props.history.push('/overview');
-//     }
-//
-//     return (
-//         <div className="Login">
-//             <form onSubmit={handleSubmit}>
-//                 <FormGroup controlId="email" bsSize="large">
-//                     <FormLabel>Email</FormLabel>
-//                     <FormControl
-//                         autoFocus
-//                         type="email"
-//                         value={email}
-//                         onChange={e => setEmail(e.target.value)}
-//                     />
-//                 </FormGroup>
-//                 <FormGroup controlId="password" bsSize="large">
-//                     <FormLabel>Public Key</FormLabel>
-//                     <FormControl
-//                         value={public_key}
-//                         onChange={e => setPublic_key(e.target.value)}
-//                         type="password"
-//                     />
-//                 </FormGroup>
-//                 <Button block bsSize="large" disabled={!validateForm()} type="submit">
-//                     Login
-//                 </Button>
-//             </form>
-//         </div>
-//     );
-// }
+import React, {useState} from "react";
+import Header from "./Header";
+
+//import "./Login.css";
+
+class Login extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {email: '',
+        privateKey: ''};
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(event) {
+        const value = event.target.value;
+        this.setState({
+            [event.target.name]: value
+        });
+    }
+
+    handleSubmit(event) {
+        this.props.handleSubmit(this.state.email,this.state.privateKey);
+    }
+
+    //TODO database connection, differentiate between user levels, add routing switch based on user level
+
+
+    render() {
+        return (
+            <div className="container-fluid text-center">
+            <div className="row">
+                <Header/>
+            </div>
+            <div className=" login-container">
+                <div className="container-fluid">
+                    <div className="col-md-8 login-form text-center">
+                        <h3>Login</h3>
+                        <form onSubmit={this.handleSubmit}>
+                            <label>
+                                Name:
+                            </label>
+                            <div className="form-group">
+                                <input name="email" type="text" value={this.state.value} onChange={this.handleChange} className="form-control" placeholder="Your Email..."/>
+                            </div>
+                            <div className="form-group">
+                                <input type="text" className="form-control" value={this.state.privateKey} placeholder="Your Private Key.. "  onChange={this.handleChange} name="privateKey"/>
+                            </div>
+                            <div className="form-group">
+                                <input type="submit" value="Submit" className="btnSubmit" />
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            </div>
+
+        );
+    }
+}
+
+export default Login;
