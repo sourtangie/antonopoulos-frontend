@@ -1,12 +1,9 @@
-import history from "../history";
-
 const SET_LOGIN_PENDING = 'SET_LOGIN_PENDING';
 const SET_LOGIN_SUCCESS = 'SET_LOGIN_SUCCESS';
 const SET_LOGIN_ERROR = 'SET_LOGIN_ERROR';
 const SET_PUBLIC_KEY = 'SET_PUBLIC_KEY';
 const SET_USER_LEVEL = 'SET_USER_LEVEL';
 const SET_EMAIL = 'SET_EMAIL';
-
 
 
 export function login(email, private_key) {
@@ -51,21 +48,24 @@ function setLoginError(loginError) {
         loginError
     }
 }
+
 function setPublicKey(public_key) {
     return {
         type: SET_PUBLIC_KEY,
         public_key
     }
 }
+
 function setUserLevel(user_level) {
     return {
         type: SET_USER_LEVEL,
         user_level
     }
 }
-function setEmail(email){
-    return{
-        type:SET_EMAIL,
+
+function setEmail(email) {
+    return {
+        type: SET_EMAIL,
         email
     }
 }
@@ -73,46 +73,46 @@ function setEmail(email){
 function callLoginApi(email, private_key, callback) {
     console.log(email, private_key);
     setTimeout(() => {
-            const myHeaders = new Headers();
-            myHeaders.append('Content-Type', 'application/json; charset=utf-8');
-            const link = 'https://xlogchain.nl:3000/users/login/';
-            fetch(link, {
-                method: 'POST',
-                headers: myHeaders,
-                body: JSON.stringify({email:email, private_key:private_key}
-                )
-            }).then(response => {
-                if(!response.ok){
-                    console.log('allllloooo' + response);
-                    return callback(new Error('Invalid email and password'));
-                }
-                return response.json();
-            }).then(json => {
-                console.log("message:"+json.message);
-                if(json.message === "Match complete"){
-                    localStorage.setItem('user',"logged_in");
-                    let callbackArray = new Array();
-                    callbackArray[0] = null;
-                    callbackArray[1] = json.public_key;
-                    callbackArray[2] = json.user_level
-                    callbackArray[3] = email;
-                    return callback(callbackArray);
-                }
-                else{
-                    return callback(new Error('Invalid email and password'));
-                }
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json; charset=utf-8');
+        const link = 'https://xlogchain.nl:3000/users/login/';
+        fetch(link, {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify({email: email, private_key: private_key}
+            )
+        }).then(response => {
+            if (!response.ok) {
+                console.log('allllloooo' + response);
+                return callback(new Error('Invalid email and password'));
+            }
+            return response.json();
+        }).then(json => {
+            console.log("message:" + json.message);
+            if (json.message === "Match complete") {
+                localStorage.setItem('user', "logged_in");
+                let callbackArray = [];
+                callbackArray[0] = null;
+                callbackArray[1] = json.public_key;
+                callbackArray[2] = json.user_level;
+                callbackArray[3] = email;
+                return callback(callbackArray);
+            } else {
+                return callback(new Error('Invalid email and password'));
+            }
 
-            }).catch(err => {
-                return callback(new Error(err))
-            });
-})}
+        }).catch(err => {
+            return callback(new Error(err))
+        });
+    })
+}
 
 //reducer to make changes to Redux store
 export default function reducer(state = {
     isLoginSuccess: false,
     isLoginPending: false,
     loginError: null,
-    public_key:"",
+    public_key: "",
 
 }, action) {
     switch (action.type) {

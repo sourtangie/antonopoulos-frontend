@@ -1,5 +1,5 @@
-.search{
-    border-radius: 15px 15px 0px 0px;
+.search {
+    border-radius: 15px 15px 0 0;
     text-align: right;
     padding: 1% 5% 1% 5%;
     position: sticky;
@@ -7,6 +7,7 @@
     top: 0;
     box-shadow: 1px 5px 5px grey;
 }
+
 body {
     margin: 0;
     font-family: "Roboto";
@@ -18,72 +19,79 @@ code {
     font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-.input {
-    min-width: 25%;
+
+.title {
+    text-align: center;
 }
 
-.title{
-text-align: center; }
-
-.header-padding{
+.header-padding {
     padding-bottom: 5px;
     margin-bottom: 10px;
 }
-.brand-pic{
+
+.brand-pic {
     margin-right: 5px;
 }
-.adminButton{
+
+.adminButton {
     float: right;
-    width:30px;
+    width: 30px;
     height: 30px;
     cursor: pointer;
 
 }
-.main-header{
+
+.main-header {
     width: 100%;
 }
-.keyInput-label{
-    justify-content: left!important;
+
+.keyInput-label {
+    justify-content: left !important;
 }
-.title-buttons {
-    color: #fff !important;
-}
-.active-button{
-    color:#ffffff!important;
-}
-.login-container{
+
+.login-container {
     margin-top: 5%;
     margin-bottom: 5%;
     display: inline-block;
     text-align: center;
-    width:100%;
+    width: 100%;
 }
-.login-form{
+
+.login-form {
     padding: 5%;
     box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
     display: inline-block;
 }
-.login-form h3{
+
+.login-form h3 {
     text-align: center;
     color: #333;
 }
-.login-container form{
+
+.login-container form {
     padding: 10%;
 }
-.btnSubmit
-{
+
+.btnSubmit {
     width: 50%;
     border-radius: 1rem;
     padding: 1.5%;
     border: none;
     cursor: pointer;
 }
-.login-form .btnSubmit{
+
+.login-form .btnSubmit {
     font-weight: 600;
     color: #ffffff;
     background-color: #343a40;
 }
-.displayKeys{
-    position:sticky!important;
-    top:70px;
+
+.displayKeys {
+    position: sticky !important;
+    top: 70px;
 }
+
+.input_user_level {
+    width: 20%;
+}
+

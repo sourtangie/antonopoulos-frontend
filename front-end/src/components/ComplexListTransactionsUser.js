@@ -1,15 +1,16 @@
 import React from 'react';
-import FormView from "./FormView";
-import User from "./User";
 import {Route, Switch} from "react-router-dom";
-import {getAllTransactions, getAllUsers} from "../api/ItemService";
+import {getAllTransactions} from "../api/ItemService";
 import refreshIcon from "../img/refresh.png";
+
 class ComplexListTransactionsUser extends React.Component {
+    fullList;
+
     constructor(props) {
         super(props);
         this.state = {
             filtered: this.props.items,
-            public:this.props.public
+            public: this.props.public
         };
         this.handler = this.handler.bind(this);
         this.refresh = this.refresh.bind(this);
@@ -17,28 +18,24 @@ class ComplexListTransactionsUser extends React.Component {
 
     componentDidMount() {
         this.fullList = this.props.items;
-        this.fullList = this.fullList.filter((item) => {
-            let data = item.username.toLowerCase();
-            return data.includes(
-                this.props.email.toLowerCase());
-        });
         this.setState({
             filtered: this.fullList,
         });
     }
+
     componentDidUpdate(prevProps, prevState, snapshot) {
-        if(this.props.items !== prevProps.items){
-            this.setState({filtered: this.props.items});
+        if (this.props.items !== prevProps.items) {
+            this.handler(this.props.items);
         }
     }
-    refresh(){
+
+    refresh() {
         getAllTransactions().then(items => {
             this.handler(items);
             console.log("refreeeeesh")
         })
     }
 
-    fullList;
     handler(value) {
         this.fullList = value;
         value = value.filter((item) => {
@@ -48,17 +45,18 @@ class ComplexListTransactionsUser extends React.Component {
         });
         this.setState({filtered: value});
     }
+
     render() {
         const handler = this.handler;
         return (
             <div className="col-lg">
                 <div className="search bg-dark">
-                    <a><img className="adminButton" src={refreshIcon}onClick={this.refresh}/></a>
+                    <a><img className="adminButton" src={refreshIcon} onClick={this.refresh}/></a>
                     <Switch>
-                        <Route path= "/admin">
+                        <Route path="/admin">
                             <h2 className="title text-white">All xLog Transactions</h2>
                         </Route>
-                        <Route path = "/user">
+                        <Route path="/user">
                             <h2 className="title text-white">Personal xLog Transactions</h2>
                         </Route>
                     </Switch>

@@ -10,20 +10,20 @@ class AddUser extends React.Component {
             publicKey: "Generated key will be shown here...",
             privateKey: "Generated key will be shown here...",
             privateKey_enc: "Generated key will be shown here...",
-            userlvl: "2",
 
         }
     }
-    async addUser(email, userlvl){
+
+    async addUser(email, user_level) {
         const myHeaders = new Headers();
         myHeaders.append('Content-Type', 'application/json; charset=utf-8');
         const link = 'https://xlogchain.nl:3000/users/';
         fetch(link, {
             method: 'POST',
             headers: myHeaders,
-            body: JSON.stringify({requester: email, userlvl: this.state.userlvl})
+            body: JSON.stringify({requester: email, userlvl: user_level})
         }).then(response => {
-            if(!response.ok){
+            if (!response.ok) {
                 console.log('error' + response);
             }
             return response.json();
@@ -31,27 +31,31 @@ class AddUser extends React.Component {
             this.handler(json)
         })
     }
-    handler(keys){
-            // this.setState({publicKey:data.public_key, privateKey: data.private_key, privateKey_enc:data.encrypted_key});
+
+    handler(keys) {
+        // this.setState({publicKey:data.public_key, privateKey: data.private_key, privateKey_enc:data.encrypted_key});
         this.setState({
             publicKey: keys.public_key,
-            privateKey:keys.private_key,
-            privateKey_enc:keys.encrypted_key,
+            privateKey: keys.private_key,
+            privateKey_enc: keys.encrypted_key,
         });
     }
 
-    changeValue(email) {
-        this.addUser(email).then(r =>
-        console.log(r));
+    changeValue(email, user_level) {
+        this.addUser(email, user_level).then(r =>
+            console.log(r));
     }
 
     handleChange(e) {
         e.preventDefault();
-        if (e.target.key.value === "") {
+        if (e.target.email.value === "") {
             alert("Please input a valid email!")
         } else {
+            let email = e.target.email.value;
+            let user_level = parseInt(e.target.user_level.value, 10);
             this.changeValue(
-                e.target.key.value,
+                email,
+                user_level
             );
         }
     };
@@ -60,14 +64,18 @@ class AddUser extends React.Component {
         return (
             <div className="col-6 col-md-4  float-right addUser">
                 <div className="search bg-dark">
-                <h5 className="text-center text-white">Add User: </h5>
-                <form className="justify-content-md-center form-inline" onSubmit={this.handleChange.bind(this)}>
-                    <div>
-                        <input className="form-control mr-md-2" type="search" name="key" placeholder="Email Address..."
-                               aria-label="Search"/>
-                        <button className="btn btn-outline-success" type="submit">Submit</button>
-                    </div>
-                </form>
+                    <h5 className="text-center text-white">Add User: </h5>
+                    <form className="justify-content-md-center form-inline" onSubmit={this.handleChange.bind(this)}>
+                        <div>
+                            <input className="form-control mr-md-2" type="search" name="email"
+                                   placeholder="Email Address..."
+                                   aria-label="Search"/>
+                            <input className="form-control mr-md-2 input_user_level" type="search" name="user_level"
+                                   placeholder="User Level (1 or 2)"
+                                   aria-label="Search"/>
+                            <button className="btn btn-outline-success" type="submit">Submit</button>
+                        </div>
+                    </form>
                 </div>
                 <div className="displayKeys text-center">
                     <ul className="list-group list-unstyled">

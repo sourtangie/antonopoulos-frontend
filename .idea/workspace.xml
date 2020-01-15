@@ -22,6 +22,7 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -45,7 +46,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1579050649132</updated>
-      <workItem from="1579050650387" duration="21918000" />
+      <workItem from="1579050650387" duration="22298000" />
+      <workItem from="1579101419858" duration="4636000" />
     </task>
     <servers />
   </component>
