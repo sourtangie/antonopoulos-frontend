@@ -16,19 +16,12 @@ class NetworkInfo extends React.Component {
         getNetworkInfo().then(items => {
             this.handler(items);
         });
-        this.setState({
-            filtered: this.state.fullList
-        })
-    }
 
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.props.items !== prevProps.items) {
-            this.handler(this.props.items);
-        }
     }
 
     handler(value) {
-        this.setState({fullList: value});
+        this.setState({fullList: value,
+        filtered:value});
     }
 
     handleChange(e) {
@@ -65,7 +58,7 @@ class NetworkInfo extends React.Component {
                            onChange={this.handleChange}/>
                 </div>
                 <ul className="list-group">
-                    {this.state.fullList.map(item => (
+                    {this.state.filtered.map(item => (
                         <li className="list-group-item bg-light" key={item.id}>
                             <div className="d-flex w-100 justify-content-between"><h4 className="mb-1"></h4>
                                 <small className="font-weight-bold">Timestamp: {item.timestamp}</small></div>
