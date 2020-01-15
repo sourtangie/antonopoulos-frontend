@@ -61,7 +61,7 @@ class NetworkInfo extends React.Component {
                     {this.state.filtered.map(item => (
                         <li className="list-group-item bg-light" key={item.id}>
                             <div className="d-flex w-100 justify-content-between"><h4 className="mb-1"></h4>
-                                <small className="font-weight-bold">Timestamp: {item.timestamp}</small></div>
+                                </div>
                             <div><h5 className="mb-1">Batcher Public Key</h5> <p
                                 className="mb-1 overflow-auto">{item.header.batcher_public_key}</p></div>
                             <div><h5 className="mb-1">Dependencies</h5> <p
