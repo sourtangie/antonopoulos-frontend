@@ -2,29 +2,47 @@
  * Created by cassi on 28/11/19.
  */
 import React from "react";
-import ItemService from "../api/ItemService";
 
 class AddUser extends React.Component {
     constructor(props) {
         super(props);
-        this.itemService = new ItemService();
         this.state = {
             publicKey: "Generated key will be shown here...",
             privateKey: "Generated key will be shown here...",
-            privateKey_enc: "Generated key will be shown here..."
+            privateKey_enc: "Generated key will be shown here...",
+            userlvl: "2",
 
         }
     }
-
-    pushUser(email) {
-        this.itemService.addUser(email).then(response => {
-            console.log(response);
-
+    async addUser(email, userlvl){
+        const myHeaders = new Headers();
+        myHeaders.append('Content-Type', 'application/json; charset=utf-8');
+        const link = 'https://xlogchain.nl:3000/users/';
+        fetch(link, {
+            method: 'POST',
+            headers: myHeaders,
+            body: JSON.stringify({requester: email, userlvl: this.state.userlvl})
+        }).then(response => {
+            if(!response.ok){
+                console.log('error' + response);
+            }
+            return response.json();
+        }).then(json => {
+            this.handler(json)
+        })
+    }
+    handler(keys){
+            // this.setState({publicKey:data.public_key, privateKey: data.private_key, privateKey_enc:data.encrypted_key});
+        this.setState({
+            publicKey: keys.public_key,
+            privateKey:keys.private_key,
+            privateKey_enc:keys.encrypted_key,
         });
     }
 
     changeValue(email) {
-        this.pushUser(email);
+        this.addUser(email).then(r =>
+        console.log(r));
     }
 
     handleChange(e) {

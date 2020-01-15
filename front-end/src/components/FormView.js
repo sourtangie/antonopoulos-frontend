@@ -2,12 +2,11 @@
  * Created by cassi on 28/11/19.
  */
 import React from "react";
-import ItemService from "../api/ItemService";
+import {getAllTransactions} from "../api/ItemService";
 
 class FormView extends React.Component {
     constructor(props) {
         super(props);
-        this.itemService = new ItemService();
     }
     componentDidMount(){
         this.setState({

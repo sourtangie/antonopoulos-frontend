@@ -1,8 +1,9 @@
-class ItemService {
-    async getAllTransactions(key) {
-        console.log(key);
-        const link = 'https://xlogchain.nl/sawtooth/state?address='+key;
-        return fetch(link)
+export async function getAllTransactions() {
+    console.log("fired")
+        const link = 'https://xlogchain.nl/sawtooth/state?address=a75563';
+        return fetch(link, {
+            method: 'GET'
+        })
             .then(response => {
                 if(!response.ok){
                     console.log('error' + response);
@@ -11,17 +12,18 @@ class ItemService {
             }).then(json => {
                 const itemArray = json.data;
                 for(let i = 0; i < itemArray.length; i++){
-                    itemArray[i].data = this.decryptData(itemArray[i].data);
+                    itemArray[i].data = decryptData(itemArray[i].data);
                     const fields = itemArray[i].data.split(',');
                     itemArray[i] = {username: fields[0],logNumber:fields[1],docName:fields[2],timestamp:fields[3], address: itemArray[i].address};
-                    console.log(itemArray[i].username)
-                    itemArray[i].timestamp = itemArray[i].timestamp.replace('T',' @ ');
+                    if(itemArray[i].timestamp !== undefined) {
+                        itemArray[i].timestamp = itemArray[i].timestamp.replace('T', ' @ ');
+                    }
                 }
                 return itemArray;
             })
 
     }
-     decryptData(data, key){
+     export function decryptData(data, key){
         //decryption methods
         //decryptedDate = sha512.decrypt(data, key);
         const decryptedData = atob(data);
@@ -30,42 +32,30 @@ class ItemService {
 
 }
 //get users to fill admin user list
-    async getAllUsers(key) {
-        const link = 'https://xlogchain.nl/sawtooth/state?address=';
-        return fetch(link)
+    export async function getAllUsers() {
+        const link = 'https://xlogchain.nl:3000/users/all';
+        return fetch(link, {
+            method: 'GET',
+        })
             .then(response => {
                 if(!response.ok){
                     console.log('error' + response);
                 }
                 return response.json();
             }).then(json => {
-                const userArray = json.data;
-                for(let i = 0; i < userArray.length; i++){
-                    console.log(userArray[i].username)
-
-                }
+                const userArray = json;
+                console.log(userArray);
                 return userArray;
             })
 
     }
 
-    //generate keys and add new user
-     async addUser(email){
-        const myHeaders = new Headers();
-        myHeaders.append('Content-Type', 'application/json; charset=utf-8');
-        const link = 'https://xlogchain.nl:3000/user/';
-        fetch(link, {
-            method: 'POST',
-            headers: myHeaders,
-            body: JSON.stringify({requester: email})
-        }).then(response => {
-            console.log('response' + response);
-            return response.json();
-            }).catch((err)=> console.log(err))
-    }
-    async getNetworkInfo() {
+
+export async function getNetworkInfo() {
         const link = 'https://xlogchain.nl/sawtooth/transactions';
-        return fetch(link)
+        return fetch(link, {
+            method: 'GET',
+        })
             .then(response => {
                 if(!response.ok){
                     console.log('error' + response);
@@ -75,11 +65,9 @@ class ItemService {
                 const itemArray = json.data;
                 for(let i = 0; i < itemArray.length; i++){
                     console.log(itemArray[i].header);
-                    itemArray[i].payload = this.decryptData(itemArray[i].payload);
+                    itemArray[i].payload = decryptData(itemArray[i].payload);
                 }
                 return itemArray;
             })
 
     }
-}
-export default ItemService;

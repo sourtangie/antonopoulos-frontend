@@ -1,17 +1,19 @@
-import ItemService from "../api/ItemService";
+import {getAllTransactions} from "../api/ItemService";
 import React, { Component } from "react";
-import ComplexListTransactions from "./ComplexListTransactions";
+import ComplexListTransactionsAdmin from "./ComplexListTransactionsAdmin";
 import {Link, Route, Switch} from "react-router-dom";
 import User from "./User";
 import ComplexListUsers from "./ComplexListUsers";
 import AddUser from "./addUser";
 import NetworkInfo from "./NetworkInfo";
+import { connect } from 'react-redux';
+import mapDispatchToProps from "react-redux/lib/connect/mapDispatchToProps";
+
 
 
 class Admin extends Component {
     constructor(props) {
         super(props);
-        this.itemService = new ItemService();
         this.state = {
             filtered: [],
             logFamily: "a75563",
@@ -33,18 +35,18 @@ class Admin extends Component {
         this.setState({
             user_level:this.props.user_level
         });
-        this.itemService.getAllTransactions(this.state.logFamily).then(items => {
+        getAllTransactions().then(items => {
            this.setState({filtered: items});
             console.log("init="+this.state);
     })}
 
 
     render(){
-        if(this.state.user_level !== 2){
+        let{public_key, user_level} = this.props;
+        if(user_level !== 2){
             return(
             <div>
                 <div className="text-center">
-                    <h5 className="text-center">ADMIN PANEL</h5>
                     <h3 className="text-center">YOU ARE NOT AN ADMIN</h3>
                 </div>
             </div>
@@ -57,7 +59,6 @@ class Admin extends Component {
         return(
             <div>
                 <div className="text-center">
-                <h5 className="text-center">ADMIN PANEL</h5>
                     <ul className='align-items-center btn-group'>
                     <Switch>
                         <Route path="/admin/transactions">
@@ -87,14 +88,14 @@ class Admin extends Component {
                 <div className="row">
                 <Switch>
                     <Route exact path="/admin">
-                        <ComplexListTransactions items={this.state.filtered} />
+                        <ComplexListTransactionsAdmin items={this.state.filtered}  />
                     </Route>
                     <Route path="/admin/transactions">
-                        <ComplexListTransactions items={this.state.filtered} />
+                        <ComplexListTransactionsAdmin items={this.state.filtered} />
                     </Route>
                     <Route path="/admin/users">
                         <ComplexListUsers users = {this.state.users}  />
-                        <AddUser/>
+                        <AddUser reload={getAllTransactions()}/>
                     </Route>
                     <Route path="/admin/network">
                         <NetworkInfo/>
@@ -106,9 +107,15 @@ class Admin extends Component {
         )
     }
 }
+const mapStateToProps = (state) => {
+    return{
+        public_key: state.public_key,
+        user_level: state.user_level
+    };
+};
 
 
 
 
 
-export default Admin;
+export default connect(mapStateToProps, mapDispatchToProps)(Admin);

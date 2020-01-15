@@ -1,5 +1,4 @@
 import React from 'react';
-import ComplexListTransactions from './components/ComplexListTransactions';
 import User from './components/User';
 import Admin from './components/Admin';
 import Home from './components/Home'
@@ -13,62 +12,53 @@ import {
     Link
 } from "react-router-dom";
 import FormView from "./components/FormView";
-import Login from "./components/Login";
+import LoginForm from "./components/LoginForm";
+import history from "./history";
+import {PrivateRoute} from "./PrivateRoute";
+import Redirect from "react-router-dom/es/Redirect";
 
 class App extends React.Component {
     constructor(props){
-
         super(props);
         this.state = {
-            list : [ {
-                logNumber: 'Not Logged In...'}],
-            public : "",
             user_level: 0
         }
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.loginSuccess = "Match complete";
+        this.loginFail = "UNDEFINED";
     }
-    handleSubmit(email,privateKey) {
-        this.setState(
-            {user_level:2,
-                email: email,
-            privateKey:privateKey});
+
+    handleChange(event) {
+        const value = event.target.value;
+        this.setState({
+            [event.target.name]: value
+        });
     }
 
 
     render(){
-        if(this.state.user_level === 0){
-            return( <Router>
-                <div className="container-fluid app">
-                    <div className="row">
-                        <Login handleSubmit={this.handleSubmit.bind(this)} />
-                    </div>
-                    <div className="content">
-                    </div>
-                </div>
-            </Router>);
-
-        }else if(this.state.user_level === 2){
     return(
-        <Router>
+        <Router history={history}>
     <div className="container-fluid app">
         <div className="row">
             <Header />
         </div>
-            <div className="content">
-                <Switch>
-                <Route path="/user">
-                    <User user_level={this.state.user_level} list={this.state.list} public={this.state.public} />
+        <div className="content">
+            <Switch>
+                <Route exact path ="/">
+                    <Home />
                 </Route>
-                <Route exact path="/" component={Home}/>
+                <Route path="/user">
+                    <User user_level={this.state.user_level} public={this.state.public} />
+                </Route>
                 <Route path="/admin">
                 <Admin user_level={this.state.user_level}/>
                 </Route>
-                </Switch>
+            </Switch>
         </div>
     </div>
         </Router>
 
-)
-    }}}
+)}}
 
 export default App;

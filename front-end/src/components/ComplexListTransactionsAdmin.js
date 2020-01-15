@@ -2,8 +2,9 @@ import React from 'react';
 import FormView from "./FormView";
 import User from "./User";
 import {Route, Switch} from "react-router-dom";
-import ItemService from "../api/ItemService";
-class ComplexListTransactions extends React.Component {
+import {getAllTransactions} from "../api/ItemService";
+import refreshIcon from "../img/refresh.png";
+class ComplexListTransactionsAdmin extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -12,16 +13,15 @@ class ComplexListTransactions extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handler = this.handler.bind(this);
-        this.itemService = new ItemService();
+        this.refresh = this.refresh.bind(this);
     }
 
     componentDidMount() {
         this.fullList = this.props.items;
-        console.log(this.props.public)
+        console.log(this.props.public);
         this.setState({
             filtered: this.props.items,
         });
-        this.init(this.state.public)
 }
 componentDidUpdate(prevProps, prevState, snapshot) {
         if(this.props.items !== prevProps.items){
@@ -35,10 +35,16 @@ componentDidUpdate(prevProps, prevState, snapshot) {
         this.fullList = value;
         this.setState({filtered:value});
     }
-    init(key) {
-        this.itemService.getAllTransactions(key).then(items => {
+    init() {
+       getAllTransactions().then(items => {
             this.handler(items);
         });
+    }
+    refresh(){
+        getAllTransactions().then(items => {
+            this.handler(items);
+            console.log("refreeeeesh")
+        })
     }
 
     handleChange(e) {
@@ -68,15 +74,22 @@ componentDidUpdate(prevProps, prevState, snapshot) {
         return (
             <div className="col-lg">
                 <div className="search bg-dark">
-                    <h2 className="title text-white">Log Transactions</h2>
-                    <input className ="form-control mr-sm-2" type="text" placeholder="Search by user ID, block ID or file ID..." onChange={this.handleChange}/>
+                    <a><img className="adminButton" src={refreshIcon}onClick={this.refresh}/></a>
+                    <Switch>
+                        <Route path= "/admin">
+                    <h2 className="title text-white">All xLog Transactions</h2>
+                        </Route>
+                        <Route path = "/user">
+                            <h2 className="title text-white">Personal xLog Transactions</h2>
+                        </Route>
+                    </Switch>
+                            <input className ="form-control mr-sm-2" type="text" placeholder="Search by user ID, block ID or file ID..." onChange={this.handleChange}/>
                 </div>
                 <ul className="list-group">
                     {this.state.filtered.map(item => (
                         <li className="list-group-item bg-light" key={item.id}>
                             <div className="d-flex w-100 justify-content-between"><h4 className="mb-1"></h4>
                             <small className="font-weight-bold">Timestamp: {item.timestamp}</small></div>
-                            <div><h5 className="mb-1">Log Number</h5> <p className="mb-1 overflow-auto">{item.logNumber}</p></div>
                             <div><h5 className="mb-1">User:</h5> <p className="mb-1">{item.username}</p></div>
                             <div><h5 className="mb-1">Document:</h5> <p className="mb-1">{item.docName}</p></div>
                             <div><h5 className="mb-1">Address:</h5> <p className="mb-1">{item.address}</p></div>
@@ -90,4 +103,4 @@ componentDidUpdate(prevProps, prevState, snapshot) {
     }
 }
 
-export default ComplexListTransactions;
+export default ComplexListTransactionsAdmin;

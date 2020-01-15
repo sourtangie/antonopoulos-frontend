@@ -1,5 +1,10 @@
 import React, { Component } from "react";
-import ComplexListTransactions from "./ComplexListTransactions";
+import ComplexListTransactionsUser from "./ComplexListTransactionsUser";
+import { connect } from 'react-redux';
+import mapDispatchToProps from "react-redux/lib/connect/mapDispatchToProps";
+import {getAllTransactions} from "../api/ItemService";
+
+
 
 class User extends Component {
     constructor(props) {
@@ -9,19 +14,28 @@ class User extends Component {
             email:"",
             privateKey:"",
             privateKey_enc:"",
-            user_level:this.props.user_level,
-            public:this.props.public
+            public:this.props.public_key,
+            filtered: [],
+
         }
     }
     componentDidMount() {
+        this.setState({
+            user_level:this.props.user_level
+        });
+        getAllTransactions(this.state.logFamily).then(items => {
+            this.setState({filtered: items});
+        });
     }
 
     render() {
+        let{public_key, user_level, email} = this.props;
             const handler = this.handler;
-            if(this.props.user_level === 0){
+            if(user_level !== 2){
                 return (
                     <div className="row">
                         <div className="col-md-12">
+                            NOT LOGGED IN
                         </div>
                     </div>
                 )
@@ -30,11 +44,19 @@ class User extends Component {
                 return (
                     <div className="row">
                         <div className="col-md-12">
-                            <ComplexListTransactions public={this.state.public} items={this.props.list}
+                            <ComplexListTransactionsUser items={this.state.filtered} email={this.props.email}
                                                      className="col-lg-2"/>
                         </div>
                     </div>
                 );
             }}
 }
-export default User;
+const mapStateToProps = (state) => {
+    return{
+        public_key: state.public_key,
+        user_level: state.user_level,
+        email:state.email
+    };
+};
+
+export default connect(mapStateToProps,mapDispatchToProps)(User);

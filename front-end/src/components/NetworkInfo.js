@@ -2,7 +2,7 @@ import React from 'react';
 import FormView from "./FormView";
 import User from "./User";
 import {Route, Switch} from "react-router-dom";
-import ItemService from "../api/ItemService";
+import {getNetworkInfo} from "../api/ItemService";
 class NetworkInfo extends React.Component {
     constructor(props) {
         super(props);
@@ -12,11 +12,10 @@ class NetworkInfo extends React.Component {
         };
         this.handleChange = this.handleChange.bind(this);
         this.handler = this.handler.bind(this);
-        this.itemService = new ItemService();
     }
 
     componentDidMount() {
-        this.itemService.getNetworkInfo().then(items => {
+       getNetworkInfo().then(items => {
             this.handler(items);
     });
         this.setState({
@@ -30,7 +29,6 @@ class NetworkInfo extends React.Component {
     }
 
     handler(value){
-        console.log("dddddddd"+value)
         this.setState({fullList:value});
     }
 
@@ -67,7 +65,7 @@ class NetworkInfo extends React.Component {
                     <input className ="form-control mr-sm-2" type="text" placeholder="Search..." onChange={this.handleChange}/>
                 </div>
                 <ul className="list-group">
-                    {this.state.filtered.map(item => (
+                    {this.state.fullList.map(item => (
                         <li className="list-group-item bg-light" key={item.id}>
                             <div className="d-flex w-100 justify-content-between"><h4 className="mb-1"></h4>
                                 <small className="font-weight-bold">Timestamp: {item.timestamp}</small></div>
