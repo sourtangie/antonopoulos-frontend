@@ -12,16 +12,22 @@ export function login(email, private_key) {
         dispatch(setLoginSuccess(false));
         dispatch(setLoginError(null));
 
-        callLoginApi(email, private_key, error => {
-            dispatch(setLoginPending(false));
-            if (!error[0]) {
+        callLoginApi(email, private_key, callBackArray => {
+            if (callBackArray[0] === "Match complete") {
                 dispatch(setLoginSuccess(true));
-                dispatch(setPublicKey(error[1]));
-                dispatch(setUserLevel(error[2]));
-                dispatch(setEmail(error[3]));
+                dispatch(setLoginPending(false));
+                dispatch(setPublicKey(callBackArray[1]));
+                dispatch(setUserLevel(callBackArray[2]));
+                dispatch(setEmail(callBackArray[3]));
+
+
 
             } else {
-                dispatch(setLoginError(error));
+                console.log('errormsg ' +callBackArray[0]);
+                dispatch(setLoginError(callBackArray[0]));
+                dispatch(setLoginPending(false));
+
+
             }
         });
     }
@@ -92,17 +98,21 @@ function callLoginApi(email, private_key, callback) {
             if (json.message === "Match complete") {
                 localStorage.setItem('user', "logged_in");
                 let callbackArray = [];
-                callbackArray[0] = null;
+                callbackArray[0] = json.message;
                 callbackArray[1] = json.public_key;
                 callbackArray[2] = json.user_level;
                 callbackArray[3] = email;
                 return callback(callbackArray);
             } else {
-                return callback(new Error('Invalid email and password'));
+                let callbackArray = [];
+                callbackArray[0] =  "invalid email and private key combination";
+                return callback(callbackArray);
             }
 
         }).catch(err => {
-            return callback(new Error(err))
+            let callbackArray = [];
+            callbackArray[0] =  "invalid email and private key combination";
+            return callback(callbackArray);
         });
     })
 }
