@@ -32,5 +32,5 @@ If I had more time before the deadline I would do the following things:
   - Improve Error catching 
   - Consolidate multiple components into a single component to reduce duplicate code. 
       Example: ComplexTransactionListAdmin + ComplexTransactionListUser should be in 1 component that changes depending on the 
-      user_level in state. When these components were created the Redux store was not added yet which meant i needed specific components for the admin and user page
+      user_level in state. When these components were created the Redux store was not added yet which meant i needed specific components         for the admin and user page.
       With Redux added and connecting this component, user_level will be able to determine how to render the component
