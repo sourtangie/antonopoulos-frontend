@@ -2,6 +2,8 @@
  * Created by cassi on 28/11/19.
  */
 import React from "react";
+import {addUser} from "../api/ItemService";
+
 
 class AddUser extends React.Component {
     constructor(props) {
@@ -15,24 +17,6 @@ class AddUser extends React.Component {
         }
     }
 
-    async addUser(email, user_level) {
-        const myHeaders = new Headers();
-        myHeaders.append('Content-Type', 'application/json; charset=utf-8');
-        const link = 'https://xlogchain.nl:3000/users/';
-        fetch(link, {
-            method: 'POST',
-            headers: myHeaders,
-            body: JSON.stringify({requester: email, userlvl: user_level})
-        }).then(response => {
-            if (!response.ok) {
-                console.log('error' + response);
-            }
-            return response.json();
-        }).then(json => {
-            this.handler(json)
-        })
-    }
-
     handler(keys) {
         this.setState({
             publicKey: keys.public_key,
@@ -42,7 +26,7 @@ class AddUser extends React.Component {
     }
 
     changeValue(email, user_level) {
-        this.addUser(email, user_level).then(r =>
+        addUser(email, user_level).then(r =>
             console.log(r));
     }
 

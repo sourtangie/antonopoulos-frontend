@@ -73,3 +73,20 @@ export async function getNetworkInfo() {
         })
 
 }
+export async function addUser(email, user_level) {
+    const myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json; charset=utf-8');
+    const link = 'https://xlogchain.nl:3000/users/';
+    fetch(link, {
+        method: 'POST',
+        headers: myHeaders,
+        body: JSON.stringify({requester: email, userlvl: user_level})
+    }).then(response => {
+        if (!response.ok) {
+            console.log('error' + response);
+        }
+        return response.json();
+    }).then(json => {
+        this.handler(json)
+    })
+}

@@ -47,7 +47,6 @@ class ComplexListTransactionsUser extends React.Component {
     }
 
     render() {
-        const handler = this.handler;
         return (
             <div className="col-lg">
                 <div className="search bg-dark">

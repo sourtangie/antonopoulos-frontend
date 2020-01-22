@@ -5,7 +5,6 @@ import React from 'react';
 import logo from "../img/logo.png";
 import adminPic from "../img/key.svg";
 import {Link, Route, Switch} from "react-router-dom";
-import history from "../history";
 
 
 class Header extends React.Component {
