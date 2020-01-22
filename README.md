@@ -9,7 +9,7 @@ A development server will be started on localhost:3000 and the app will be hoste
 
 Information on the project: 
 
-We made a system that logs document access in SharePoint to a Hyperledger Sawtooth blockchain network. 
+We made a PoC-system that logs document access in SharePoint to a Hyperledger Sawtooth blockchain network. 
 This front-end application is able to authenticate 2 types of users; 
 
 user_level 1 is a User that can only the the transactions made with his/her account
