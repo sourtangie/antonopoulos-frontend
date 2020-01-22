@@ -1,5 +1,5 @@
 import React from 'react';
-import {decryptData, getNetworkInfo} from "../api/ItemService";
+import {getNetworkInfo} from "../api/ItemService";
 
 class NetworkInfo extends React.Component {
     constructor(props) {
@@ -20,8 +20,10 @@ class NetworkInfo extends React.Component {
     }
 
     handler(value) {
-        this.setState({fullList: value,
-        filtered:value});
+        this.setState({
+            fullList: value,
+            filtered: value
+        });
     }
 
     handleChange(e) {
@@ -49,7 +51,6 @@ class NetworkInfo extends React.Component {
     }
 
     render() {
-        const handler = this.handler;
         return (
             <div className="col-lg">
                 <div className="search bg-dark">
@@ -60,8 +61,8 @@ class NetworkInfo extends React.Component {
                 <ul className="list-group">
                     {this.state.filtered.map(item => (
                         <li className="list-group-item bg-light" key={item.id}>
-                            <div className="d-flex w-100 justify-content-between"><h4 className="mb-1"></h4>
-                                </div>
+                            <div className="d-flex w-100 justify-content-between">
+                            </div>
                             <div><h5 className="mb-1">Batcher Public Key</h5> <p
                                 className="mb-1 overflow-auto">{item.header.batcher_public_key}</p></div>
                             <div><h5 className="mb-1">Dependencies</h5> <p

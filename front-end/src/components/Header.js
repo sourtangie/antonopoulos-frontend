@@ -11,14 +11,9 @@ import history from "../history";
 class Header extends React.Component {
     constructor(props) {
         super(props);
-        this.clearLocal = this.clearLocal.bind(this)
 
     }
 
-    clearLocal() {
-        localStorage.setItem('user', "");
-        history.push('/login')
-    }
 
     render() {
         return (
@@ -37,7 +32,7 @@ class Header extends React.Component {
                     </Switch>
                 </div>
                 <div className="col-lg">
-                    <Link to="/admin"><img src={adminPic} className="adminButton"/></Link>
+                    <Link to="/admin"><img src={adminPic} className="adminButton" alt={"Admin Panel"}/></Link>
                 </div>
             </nav>)
     }

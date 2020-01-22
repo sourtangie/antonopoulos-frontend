@@ -34,8 +34,7 @@ export async function getAllTransactions() {
 export function decryptData(data) {
     //decryption methods
     //decryptedDate = sha512.decrypt(data, key);
-    const decryptedData = atob(data);
-    return decryptedData;
+    return atob(data);
 
 
 }
@@ -58,7 +57,6 @@ export async function getAllUsers() {
         })
 
 }
-
 
 export async function getNetworkInfo() {
     const link = 'https://xlogchain.nl/sawtooth/transactions';

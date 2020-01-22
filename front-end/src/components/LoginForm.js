@@ -12,14 +12,9 @@ class LoginForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-
-    //TODO database connection, differentiate between user levels, add routing switch based on user level
-
-
     render() {
         let {email, private_key} = this.state;
         let {isLoginPending, isLoginSuccess, loginError} = this.props;
-        let {public_key, user_level} = this.props;
         return (
             <div className="container-fluid text-center" style={isLoginSuccess ? {display: 'none'} : {}}>
                 <div className=" login-container">
@@ -47,7 +42,7 @@ class LoginForm extends React.Component {
                                 <div className="message">
                                     {isLoginPending && <div>Please wait...</div>}
                                     {isLoginSuccess && <div>Success.</div>}
-                                    {loginError && <div>{loginError.message}</div>}
+                                    {loginError && <div>{loginError}</div>}
                                 </div>
                             </form>
                         </div>
@@ -83,6 +78,5 @@ const mapDispatchToProps = (dispatch) => {
         login: (email, private_key) => dispatch(login(email, private_key)),
     };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginForm);

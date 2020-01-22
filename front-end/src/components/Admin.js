@@ -40,9 +40,8 @@ class Admin extends Component {
         })
     }
 
-
     render() {
-        let {public_key, user_level, email} = this.props;
+        let {user_level} = this.props;
         if (user_level !== 2) {
             return (
                 <div>
@@ -50,9 +49,7 @@ class Admin extends Component {
                         <h3 className="text-center">YOU ARE NOT AN ADMIN</h3>
                     </div>
                 </div>
-            )
-
-        }
+            )}
         const transactions = "xLog Transactions";
         const users = "User Management";
         const network = "Network Info";
@@ -112,7 +109,6 @@ class Admin extends Component {
                         </Route>
                     </Switch>
                 </div>
-
             </div>
         )
     }
@@ -125,6 +121,5 @@ const mapStateToProps = (state) => {
         email: state.email,
     };
 };
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Admin);

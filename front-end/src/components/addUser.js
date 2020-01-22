@@ -6,10 +6,11 @@ import React from "react";
 class AddUser extends React.Component {
     constructor(props) {
         super(props);
+        const waitingForInput = "Generate key will be show here...";
         this.state = {
-            publicKey: "Generated key will be shown here...",
-            privateKey: "Generated key will be shown here...",
-            privateKey_enc: "Generated key will be shown here...",
+            publicKey: waitingForInput,
+            privateKey: waitingForInput,
+            privateKey_enc: waitingForInput,
 
         }
     }
@@ -33,7 +34,6 @@ class AddUser extends React.Component {
     }
 
     handler(keys) {
-        // this.setState({publicKey:data.public_key, privateKey: data.private_key, privateKey_enc:data.encrypted_key});
         this.setState({
             publicKey: keys.public_key,
             privateKey: keys.private_key,
@@ -98,10 +98,7 @@ class AddUser extends React.Component {
                             </div>
                         </li>
                     </ul>
-
-
                 </div>
-
             </div>
         );
     }

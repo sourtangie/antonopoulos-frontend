@@ -31,7 +31,6 @@ class Home extends Component {
                         </div>
                     </div>
                 </div>
-
             );
         } else if (user_level === 2) {
             return (

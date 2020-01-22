@@ -37,7 +37,6 @@ class ComplexListUsers extends React.Component {
     refresh() {
         getAllUsers().then(items => {
             this.handler(items);
-            console.log("refreeeeesh")
         })
     }
 
@@ -68,7 +67,7 @@ class ComplexListUsers extends React.Component {
         return (
             <div className="col-12 col-lg-8">
                 <div className="search bg-dark">
-                    <a><img className="adminButton" src={refreshIcon} onClick={this.refresh}/></a>
+                    <a><img className="adminButton" src={refreshIcon} onClick={this.refresh} alt={"Refresh"}/></a>
                     <h2 className="title text-white">Users</h2>
                     <input className="form-control mr-sm-2" type="text"
                            placeholder="Search by user name, public Key or private Key..."
@@ -78,16 +77,13 @@ class ComplexListUsers extends React.Component {
                 <ul className="list-group">
                     {this.state.users.map(user => (
                         <li className="list-group-item bg-light" key={user._id}>
-                            <div className="d-flex w-100 justify-content-between"><h4 className="mb-1"></h4></div>
+                            <div className="d-flex w-100 justify-content-between"></div>
                             <div><h5 className="mb-1">User</h5> <p className="mb-1 overflow-auto">{user.email}</p></div>
                             <div><h5 className="mb-1">Private Key</h5> <p className="mb-1">{user.private_key}</p></div>
                             <div><h5 className="mb-1">Public Key</h5> <p className="mb-1">{user.public_key}</p></div>
                             <div><h5 className="mb-1">User Level</h5> <p className="mb-1">{user.user_level}</p></div>
-
                             <div><h5 className="mb-1">Encrypted Private Key</h5> <p
                                 className="mb-1">{user.encrypted_key}</p></div>
-
-
                         </li>
                     ))}
                 </ul>

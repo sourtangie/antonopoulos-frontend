@@ -45,10 +45,6 @@ code {
     width: 100%;
 }
 
-.keyInput-label {
-    justify-content: left !important;
-}
-
 .login-container {
     margin-top: 5%;
     margin-bottom: 5%;

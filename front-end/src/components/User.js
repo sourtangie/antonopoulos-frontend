@@ -13,7 +13,6 @@ class User extends Component {
             email: "",
             privateKey: "",
             privateKey_enc: "",
-            public: this.props.public_key,
             filtered: [],
 
         }
@@ -29,8 +28,7 @@ class User extends Component {
     }
 
     render() {
-        let {public_key, user_level, email} = this.props;
-        const handler = this.handler;
+        let {user_level, email} = this.props;
         if (user_level === 2) {
             return (
                 <div className="row">

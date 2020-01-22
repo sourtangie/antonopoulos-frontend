@@ -37,11 +37,9 @@ class ComplexListTransactionsAdmin extends React.Component {
         this.setState({filtered: value});
     }
 
-
     refresh() {
         getAllTransactions().then(items => {
             this.handler(items);
-            console.log("refreeeeesh")
         })
     }
 
@@ -68,11 +66,10 @@ class ComplexListTransactionsAdmin extends React.Component {
     }
 
     render() {
-        const handler = this.handler;
         return (
             <div className="col-lg">
                 <div className="search bg-dark">
-                    <a><img className="adminButton" src={refreshIcon} onClick={this.refresh}/></a>
+                    <a><img className="adminButton" src={refreshIcon} alt={"Admin Panel"} onClick={this.refresh}/></a>
                     <Switch>
                         <Route path="/admin">
                             <h2 className="title text-white">All xLog Transactions</h2>
@@ -87,13 +84,12 @@ class ComplexListTransactionsAdmin extends React.Component {
                 <ul className="list-group">
                     {this.state.filtered.map(item => (
                         <li className="list-group-item bg-light" key={item.id}>
-                            <div className="d-flex w-100 justify-content-between"><h4 className="mb-1"></h4>
+                            <div className="d-flex w-100 justify-content-between">
                                 <small className="font-weight-bold">Timestamp: {item.timestamp}</small></div>
-                            <div><h5 className="mb-1">User:</h5> <p className="mb-1">{item.username.substr(0, item.username.length - 3)}</p></div>
+                            <div><h5 className="mb-1">User:</h5> <p
+                                className="mb-1">{item.username.substr(0, item.username.length - 3)}</p></div>
                             <div><h5 className="mb-1">Document:</h5> <p className="mb-1">{item.docName}</p></div>
                             <div><h5 className="mb-1">Address:</h5> <p className="mb-1">{item.address}</p></div>
-
-
                         </li>
                     ))}
                 </ul>
